@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import { StyledEditableLayout } from "./styles";
 import { ResizeBar } from "../ResizeBar/ResizeBar";
+import { LayoutColumn } from "../LayoutColumn/LayoutColumn";
 
 
 
@@ -68,11 +69,17 @@ export const EditableLayout = () => {
 			onMouseLeave={handleClearResize}
 			ref={container}
 		>
-			<div className="column leftCol"/>
+			<div className="column leftCol">
+				<LayoutColumn />
+			</div>
 			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize(true, e)}/>
-			<div className="column centerCol" />
+			<div className="column centerCol">
+				<LayoutColumn />
+			</div>
 			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize(false, e)}/>
-			<div className="column rightCol" />
+			<div className="column rightCol">
+				<LayoutColumn />
+			</div>
 		</StyledEditableLayout>
 	)
 }

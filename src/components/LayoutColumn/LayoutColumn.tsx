@@ -1,11 +1,16 @@
 import { useState, useRef } from "react"
 import { ResizeBar } from "../ResizeBar/ResizeBar"
 import { StyledLayoutColumn } from "./styles"
+import { useLayoutDispatch } from "../LayoutContext/LayoutContext"
+import { ILayoutColumnProps } from "./types"
 
 
-export const LayoutColumn = () => {
+export const LayoutColumn = ({
+	actionType,
+	data
+}: ILayoutColumnProps) => {
 
-	const [topHeight, setTopHeight] = useState<number>(40)
+	const dispatch = useLayoutDispatch();
 	const [isResizing, setIsResizing] = useState<boolean>(false);
 
 	const dragStart = useRef<any>(0);
@@ -16,7 +21,12 @@ export const LayoutColumn = () => {
 	const handleMouseMove = (e: React.MouseEvent) => {
 		if (isResizing) {
 			const newVal =  (e.clientY - dragStart.current.top) / (dragStart.current.height) * 100;
-			setTopHeight(newVal)
+			dispatch({
+				type: actionType,
+				data: {
+					newVal
+				}
+			})
 		}
 		}
 
@@ -40,8 +50,8 @@ export const LayoutColumn = () => {
 
 	return (
 		<StyledLayoutColumn 
-			$top={{height: topHeight}} 
-			$bottom={{height: 100 - topHeight}}
+			$top={{height: data.top.height}} 
+			$bottom={{height: data.bottom.height}}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleClearResize}
 			onMouseLeave={handleClearResize}

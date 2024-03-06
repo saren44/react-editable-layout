@@ -2,19 +2,18 @@ import React, {useRef, useState} from "react";
 import { StyledEditableLayout } from "./styles";
 import { ResizeBar } from "../ResizeBar/ResizeBar";
 import { LayoutColumn } from "../LayoutColumn/LayoutColumn";
+import { useLayout, useLayoutDispatch } from "../LayoutContext/LayoutContext";
+import { HorizontalResizeType } from "./types";
 
 
 
 
 export const EditableLayout = () => {
 
-	//TODO replace states with reducer
-	//TODO add not hardcoded width and height boundaries
+	const layout = useLayout();
+	const dispatch = useLayoutDispatch();
 
-	const [leftWidth, setLeftWidth] = useState<number>(20)
-	const [rightWidth, setRightWidth] = useState<number>(20)
-	const [isResizingLeft, setIsResizingLeft] = useState<boolean>(false);
-	const [isResizingRight, setIsResizingRight] = useState<boolean>(false);
+	const [resizingState, setResizingState] = useState<HorizontalResizeType>('NONE');
 
 	const dragStart = useRef<any>(0);
 	const container = useRef<HTMLDivElement>(null);
@@ -22,26 +21,36 @@ export const EditableLayout = () => {
 
 
 	const handleMouseMove = (e: React.MouseEvent) => {
-		if (isResizingLeft) {
+		if (resizingState === 'LEFT') {
 			const newVal =  (e.clientX - dragStart.current.left) / (dragStart.current.width) * 100;
-			setLeftWidth(newVal)
+			dispatch({
+				type: 'RESIZE_LEFT_HORIZONTAL',
+				data: {
+					newVal: newVal,
+				}
+			})
+			return;
+
 		}
-		if (isResizingRight) {
+		if (resizingState === 'RIGHT') {
 			const newVal =  100 - ((e.clientX - dragStart.current.left) / (dragStart.current.width) * 100);
-			setRightWidth(newVal)
+			dispatch({
+				type: 'RESIZE_RIGHT_HORIZONTAL',
+				data: {
+					newVal: newVal,
+				}
+			})
+			return;
 		}
 	}
 
 	const handleClearResize = () => {
-		if (isResizingLeft) {
-			setIsResizingLeft(false)
-		}
-		if (isResizingRight) {
-			setIsResizingRight(false)
-		}
+		setResizingState('NONE')
 	}
 
-	const handleStartResize = (side: boolean, e: React.MouseEvent) => {
+	console.log(layout)
+
+	const handleStartResize = (newState: HorizontalResizeType, e: React.MouseEvent) => {
 		if (container.current !== null) {
 			const bcr = container.current.getBoundingClientRect()
 			dragStart.current = {
@@ -50,35 +59,30 @@ export const EditableLayout = () => {
 				width: bcr.width,
 			}
 		}
-		if (side) {
-			setIsResizingLeft(true);
-		}
-		else {
-			setIsResizingRight(true);
-		}
+		setResizingState(newState)
 	}
 
 	return (
 		<StyledEditableLayout 
-			$resizing={isResizingLeft || isResizingRight}
-			$left={{width: leftWidth > 10 ? leftWidth : 10}} 
-			$center={{width: 100 - (leftWidth > 10 ? leftWidth : 10) - (rightWidth > 10 ? rightWidth : 10)}} 
-			$right={{width: rightWidth > 10 ? rightWidth : 10}}
+			$resizing={resizingState !== 'NONE'}
+			$left={{width: layout.left.width}} 
+			$center={{width: layout.center.width}} 
+			$right={{width: layout.right.width}}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleClearResize}
 			onMouseLeave={handleClearResize}
 			ref={container}
 		>
 			<div className="column leftCol">
-				<LayoutColumn />
+				<LayoutColumn actionType={'RESIZE_LEFT_VERTICAL'} data={layout.left}/>
 			</div>
-			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize(true, e)}/>
+			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize('LEFT', e)}/>
 			<div className="column centerCol">
-				<LayoutColumn />
+				<LayoutColumn actionType={'RESIZE_CENTER_VERTICAL'} data={layout.center}/>
 			</div>
-			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize(false, e)}/>
+			<ResizeBar direction={'vertical'} dragSetter={(e) => handleStartResize('RIGHT', e)}/>
 			<div className="column rightCol">
-				<LayoutColumn />
+				<LayoutColumn actionType={'RESIZE_RIGHT_VERTICAL'} data={layout.right}/>
 			</div>
 		</StyledEditableLayout>
 	)

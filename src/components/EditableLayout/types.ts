@@ -12,3 +12,5 @@ export interface IStyledCustomizableLayoutProps {
 interface LayoutColumn {
 	width: number;
 }
+
+export type HorizontalResizeType = 'LEFT' | 'RIGHT' | 'NONE'

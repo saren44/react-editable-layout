@@ -48,7 +48,8 @@ export const EditableLayout = () => {
 		setResizingState('NONE')
 	}
 
-	console.log(layout)
+
+
 
 	const handleStartResize = (newState: HorizontalResizeType, e: React.MouseEvent) => {
 		if (container.current !== null) {

@@ -3,6 +3,7 @@ import { ResizeBar } from "../ResizeBar/ResizeBar"
 import { StyledLayoutColumn } from "./styles"
 import { useLayoutDispatch } from "../LayoutContext/LayoutContext"
 import { ILayoutColumnProps } from "./types"
+import { ComponentSelector } from "../ComponentSelector/ComponentSelector"
 
 
 export const LayoutColumn = ({
@@ -57,9 +58,13 @@ export const LayoutColumn = ({
 			onMouseLeave={handleClearResize}
 			ref={container}
 		>
-			<div className="container top" />
+			<div className="container top">
+				<ComponentSelector components={data.top.children}/>
+			</div>
 			<ResizeBar direction="horizontal" dragSetter={(e) => handleStartResize(e)}/>
-			<div className="container bottom" />
+			<div className="container bottom">
+			<ComponentSelector components={data.bottom.children} />
+			</div>
 		</StyledLayoutColumn>
 	)
 }

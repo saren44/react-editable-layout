@@ -24,7 +24,7 @@ export interface ILayoutColumn {
 
 interface LayoutComponent {
 	height: number;
-	children?: ReactNode;
+	children?: ReactNode[];
 }
 
 export interface IAction {

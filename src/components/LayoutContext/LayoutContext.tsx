@@ -1,5 +1,6 @@
 import { useContext, useReducer, createContext, ReactNode} from 'react';
 import { IAction, IConfig, ILayout, ResizeData } from './types';
+import { SampleComponent } from '../SampleComponent/SampleComponent';
 
 
 export const defaultConfig: IConfig = {
@@ -133,6 +134,7 @@ const initialLayout: ILayout = {
 		width: 20,
 		top: {
 			height: 40,
+			children: [<SampleComponent txt='top left' />, <SampleComponent txt='top l 2' />]
 
 		},
 		bottom: {

@@ -13,7 +13,7 @@ export const StyledLayoutColumn = styled.div<IStyledLayoutColumnProps>`
 
 
 	.container {
-		background-color: green;
+		background-color: lightgray;
 	}
 
 	.top {

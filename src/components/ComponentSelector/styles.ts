@@ -9,15 +9,24 @@ export const StyledComponentSelector = styled.div`
 	.selectBar {
 		height: 20px;
 		width: 100%;
-		background-color: gray;
+		background-color: lightgray;
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 	}
 
+	.emptyBar {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
 	.selectItem {
 		width: 40px;
 		margin-right: 5px;
+		text-overflow: ellipsis;
 	}
 
 	.active {

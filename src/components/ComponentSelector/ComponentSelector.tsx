@@ -14,7 +14,7 @@ export const ComponentSelector = ({
 		let res: Array<ReactNode> = [];
 		let id = 0;
 		if (components === undefined) {
-			return [];
+			return [<div className="emptyBar"> no components selected </div>];
 		}
 		components.forEach(_ => {
 			const cp = id;

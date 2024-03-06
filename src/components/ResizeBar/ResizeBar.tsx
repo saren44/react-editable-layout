@@ -11,6 +11,8 @@ export const ResizeBar = ({
 	<StyledResizeBar 
 		$direction={direction}
 		onMouseDown={dragSetter}
-
-	/>)
+	>
+		<div className="barDisplay" />
+	</StyledResizeBar>
+	)
 }

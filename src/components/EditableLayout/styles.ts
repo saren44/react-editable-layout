@@ -17,15 +17,15 @@ export const StyledEditableLayout = styled.div<IStyledCustomizableLayoutProps>`
 	}
 
 	.leftCol {
-		width: calc(${p => p.$left.width}% - 5px);
+		width: calc(${p => p.$left.width}% - 0.5px);
 	}
 
 	.centerCol {
-		width: calc(${p => p.$center.width}% - 10px);
+		width: calc(${p => p.$center.width}% - 1px);
 	}
 
 	.rightCol {
-		width: calc(${p => p.$right.width}% - 5px);
+		width: calc(${p => p.$right.width}% - 0.5px);
 	}
 
 

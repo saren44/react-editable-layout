@@ -17,11 +17,11 @@ export const StyledLayoutColumn = styled.div<IStyledLayoutColumnProps>`
 	}
 
 	.top {
-		height: calc(${p => p.$top.height}% - 5px);
+		height: calc(${p => p.$top.height}% - 0.5px);
 	}
 
 	.bottom {
-		height: calc(${p => p.$bottom.height}% - 5px);
+		height: calc(${p => p.$bottom.height}% - 0.5px);
 	}
 
 `

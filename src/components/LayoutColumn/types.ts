@@ -9,7 +9,7 @@ export interface ILayoutColumnProps {
 export interface IStyledLayoutColumnProps {
 	$top: LayoutComponent;
 	$bottom: LayoutComponent;
-	$dragging: boolean;
+	$resizing: boolean;
 }
 
 interface LayoutComponent {

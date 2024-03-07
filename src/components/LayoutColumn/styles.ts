@@ -10,6 +10,7 @@ export const StyledLayoutColumn = styled.div<IStyledLayoutColumnProps>`
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	cursor: ${p => p.$resizing ? 'ns-resize' : 'default'};
 
 
 	.container {

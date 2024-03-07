@@ -53,7 +53,7 @@ export const LayoutColumn = ({
 		<StyledLayoutColumn 
 			$top={{height: data.top.height}} 
 			$bottom={{height: data.bottom.height}}
-			$dragging={isResizing}
+			$resizing={isResizing}
 			onMouseMove={handleMouseMove}
 			onMouseUp={handleClearResize}
 			onMouseLeave={handleClearResize}
